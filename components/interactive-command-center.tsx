@@ -1,8 +1,8 @@
 'use client';
 
-import { useMemo, useState, type ComponentType } from 'react';
+import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, BellRing, Box, Drill, Gauge, Layers3, ShieldCheck, Sparkles, Wrench } from 'lucide-react';
+import { ArrowRight, BellRing, Box, Drill, Gauge, Layers3, ShieldCheck, Sparkles, Wrench, type LucideIcon } from 'lucide-react';
 import { Reveal } from './motion';
 
 type Segment = {
@@ -12,7 +12,7 @@ type Segment = {
   title: string;
   body: string;
   stats: { label: string; value: string }[];
-  cards: { title: string; detail: string; icon: ComponentType<{ className?: string }> }[];
+  cards: { title: string; detail: string; icon: LucideIcon }[];
 };
 
 const segments: Segment[] = [

@@ -1,111 +1,137 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Calculator, CheckCircle2, Package, Truck, Wrench } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
 
-const projectTypes = [
-  { id: 'renovation', label: 'Renovation', multiplier: 1.1 },
-  { id: 'site', label: 'Site Supply', multiplier: 1.45 },
-  { id: 'maintenance', label: 'Maintenance', multiplier: 0.85 },
+const packageOptions = [
+  { label: 'Starter refresh', value: 'starter', price: 1200 },
+  { label: 'Contractor loadout', value: 'contractor', price: 3800 },
+  { label: 'Full site supply', value: 'site', price: 8900 },
 ] as const;
 
-const categories = [
-  { id: 'tools', label: 'Tools', value: 2800, icon: Wrench },
-  { id: 'materials', label: 'Materials', value: 4200, icon: Package },
-  { id: 'delivery', label: 'Delivery', value: 650, icon: Truck },
+const serviceOptions = [
+  { label: 'Same-day delivery', value: 'delivery', price: 650 },
+  { label: 'Priority quote desk', value: 'priority', price: 350 },
+  { label: 'Trade account setup', value: 'account', price: 500 },
+  { label: 'Installation support', value: 'install', price: 1200 },
 ] as const;
 
 export function QuoteBuilder() {
-  const [projectType, setProjectType] = useState<(typeof projectTypes)[number]['id']>('site');
-  const [selected, setSelected] = useState<string[]>(['tools', 'materials']);
+  const [pack, setPack] = useState<(typeof packageOptions)[number]['value']>('contractor');
+  const [services, setServices] = useState<string[]>(['delivery', 'priority']);
+  const [urgency, setUrgency] = useState(2);
 
-  const multiplier = projectTypes.find((item) => item.id === projectType)?.multiplier ?? 1;
-  const subtotal = categories.filter((item) => selected.includes(item.id)).reduce((acc, item) => acc + item.value, 0);
-  const total = Math.round(subtotal * multiplier);
+  const selectedPackage = packageOptions.find((item) => item.value === pack) ?? packageOptions[1];
 
-  const responseLabel = useMemo(() => {
-    if (total > 7000) return 'Priority contractor callback';
-    if (total > 4000) return 'Fast quote turnaround';
-    return 'Standard same-day response';
-  }, [total]);
+  const total = useMemo(() => {
+    const serviceTotal = serviceOptions
+      .filter((item) => services.includes(item.value))
+      .reduce((sum, item) => sum + item.price, 0);
+    return selectedPackage.price + serviceTotal + urgency * 220;
+  }, [selectedPackage, services, urgency]);
+
+  const toggleService = (value: string) => {
+    setServices((current) => (current.includes(value) ? current.filter((item) => item !== value) : [...current, value]));
+  };
 
   return (
-    <section className="section-shell pb-24">
-      <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="steel-panel rounded-[2rem] p-8">
-          <div className="flex items-center gap-3 text-orange-300"><Calculator className="h-5 w-5" /> <span className="text-sm uppercase tracking-[0.22em]">Interactive quote builder</span></div>
-          <div className="mt-4 text-4xl font-black uppercase">Click the options and build a live demo quote.</div>
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-zinc-300">
-            This is perfect for showing someone the site is not just animated — it responds. Every click updates the summary panel in real time.
-          </p>
+    <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+      <div className="steel-panel rounded-[2rem] p-6 md:p-8">
+        <div className="text-sm uppercase tracking-[0.25em] text-orange-300">Reactive quote builder</div>
+        <div className="mt-3 text-3xl font-black uppercase md:text-4xl">Click options and watch the quote update live.</div>
+        <p className="mt-4 max-w-xl text-zinc-300">
+          Perfect for demos. It makes the contact page feel functional, custom and premium even before you connect a real backend.
+        </p>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {projectTypes.map((type) => (
-              <button
-                key={type.id}
-                type="button"
-                onClick={() => setProjectType(type.id)}
-                className={`rounded-2xl border px-4 py-4 text-left transition ${projectType === type.id ? 'border-orange-500/40 bg-orange-500/[0.08]' : 'border-white/10 bg-zinc-900/70 hover:bg-white/5'}`}
-              >
-                <div className="text-xs uppercase tracking-[0.18em] text-zinc-500">Project type</div>
-                <div className="mt-2 font-semibold uppercase tracking-[0.12em]">{type.label}</div>
-              </button>
-            ))}
+        <div className="mt-8 space-y-6">
+          <div>
+            <div className="mb-3 text-xs uppercase tracking-[0.24em] text-zinc-500">Package</div>
+            <div className="grid gap-3 md:grid-cols-3">
+              {packageOptions.map((item) => (
+                <button
+                  key={item.value}
+                  onClick={() => setPack(item.value)}
+                  className={`rounded-[1.4rem] border p-4 text-left transition ${pack === item.value ? 'border-orange-500/40 bg-orange-500/10' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
+                >
+                  <div className="text-sm uppercase tracking-[0.2em] text-zinc-400">Package</div>
+                  <div className="mt-2 text-lg font-black">{item.label}</div>
+                  <div className="mt-2 text-orange-400">R{item.price.toLocaleString()}</div>
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="mt-8 grid gap-4">
-            {categories.map((category) => {
-              const Icon = category.icon;
-              const checked = selected.includes(category.id);
-              return (
-                <button
-                  key={category.id}
-                  type="button"
-                  onClick={() => setSelected((prev) => (prev.includes(category.id) ? prev.filter((item) => item !== category.id) : [...prev, category.id]))}
-                  className={`flex items-center justify-between rounded-2xl border px-5 py-4 text-left transition ${checked ? 'border-orange-500/40 bg-orange-500/[0.08]' : 'border-white/10 bg-zinc-900/70 hover:bg-white/5'}`}
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-orange-500/20 bg-orange-500/15">
-                      <Icon className="h-6 w-6 text-orange-400" />
-                    </div>
+          <div>
+            <div className="mb-3 text-xs uppercase tracking-[0.24em] text-zinc-500">Add-on services</div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {serviceOptions.map((item) => {
+                const active = services.includes(item.value);
+                return (
+                  <button
+                    key={item.value}
+                    onClick={() => toggleService(item.value)}
+                    className={`flex items-center justify-between rounded-[1.3rem] border p-4 text-left transition ${active ? 'border-orange-500/40 bg-orange-500/10' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
+                  >
                     <div>
-                      <div className="text-xs uppercase tracking-[0.18em] text-zinc-500">Include category</div>
-                      <div className="mt-1 font-semibold uppercase tracking-[0.1em]">{category.label}</div>
+                      <div className="font-semibold">{item.label}</div>
+                      <div className="mt-1 text-sm text-zinc-400">R{item.price.toLocaleString()}</div>
                     </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-sm uppercase tracking-[0.18em] text-zinc-500">Demo value</div>
-                    <div className="mt-1 font-semibold text-orange-300">R{category.value.toLocaleString()}</div>
-                  </div>
-                </button>
-              );
-            })}
+                    <CheckCircle2 className={`h-5 w-5 ${active ? 'text-orange-400' : 'text-zinc-600'}`} />
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div>
+            <div className="mb-3 flex items-center justify-between text-xs uppercase tracking-[0.24em] text-zinc-500">
+              <span>Urgency</span>
+              <span>{urgency}/3</span>
+            </div>
+            <input type="range" min={0} max={3} value={urgency} onChange={(event) => setUrgency(Number(event.target.value))} className="h-2 w-full accent-orange-500" />
+          </div>
+        </div>
+      </div>
+
+      <motion.div layout className="rounded-[2rem] border border-orange-500/20 bg-gradient-to-b from-orange-500/12 to-white/5 p-6 md:p-8">
+        <div className="flex items-center justify-between gap-4 border-b border-white/10 pb-5">
+          <div>
+            <div className="text-xs uppercase tracking-[0.25em] text-orange-300">Live summary</div>
+            <div className="mt-2 text-3xl font-black uppercase">Presentation-ready quote card</div>
+          </div>
+          <div className="rounded-full border border-white/10 bg-zinc-950/50 px-4 py-2 text-xs uppercase tracking-[0.2em] text-zinc-300">Reactive</div>
+        </div>
+
+        <div className="steel-panel mt-6 rounded-[1.75rem] p-6">
+          <div className="flex items-center gap-3 text-orange-300">
+            <Sparkles className="h-5 w-5" />
+            <span className="text-xs uppercase tracking-[0.24em]">Estimated package</span>
+          </div>
+          <div className="mt-4 text-4xl font-black">R{total.toLocaleString()}</div>
+          <div className="mt-2 text-zinc-300">{selectedPackage.label}</div>
+        </div>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div className="steel-panel rounded-[1.5rem] p-5">
+            <div className="text-xs uppercase tracking-[0.24em] text-zinc-500">Included services</div>
+            <div className="mt-3 space-y-2 text-zinc-300">
+              {serviceOptions.filter((item) => services.includes(item.value)).map((item) => (
+                <div key={item.value}>{item.label}</div>
+              ))}
+              {services.length === 0 ? <div>No extras selected</div> : null}
+            </div>
+          </div>
+          <div className="steel-panel rounded-[1.5rem] p-5">
+            <div className="text-xs uppercase tracking-[0.24em] text-zinc-500">Next action</div>
+            <div className="mt-3 text-zinc-300">Turn this into a real form, WhatsApp handoff or CRM lead route when you go live.</div>
           </div>
         </div>
 
-        <motion.div layout className="steel-panel rounded-[2rem] p-8 lg:sticky lg:top-28">
-          <div className="text-sm uppercase tracking-[0.25em] text-orange-300">Live summary</div>
-          <div className="mt-4 text-5xl font-black">R{total.toLocaleString()}</div>
-          <div className="mt-2 text-sm uppercase tracking-[0.18em] text-zinc-400">Estimated response: {responseLabel}</div>
-          <div className="mt-6 space-y-3">
-            {selected.length ? selected.map((id) => {
-              const item = categories.find((category) => category.id === id);
-              if (!item) return null;
-              return (
-                <div key={item.id} className="rounded-2xl border border-white/10 bg-zinc-900/80 px-4 py-4">
-                  <div className="text-xs uppercase tracking-[0.18em] text-zinc-500">Included</div>
-                  <div className="mt-1 font-semibold uppercase tracking-[0.1em]">{item.label}</div>
-                </div>
-              );
-            }) : <div className="rounded-2xl border border-dashed border-white/10 px-4 py-6 text-zinc-400">Select at least one category.</div>}
-          </div>
-          <div className="mt-6 rounded-[1.7rem] border border-orange-500/20 bg-orange-500/[0.08] p-5">
-            <div className="flex items-center gap-3 text-orange-300"><CheckCircle2 className="h-5 w-5" /> <span className="text-sm uppercase tracking-[0.18em]">Interactive and reactive demo state</span></div>
-            <p className="mt-3 text-zinc-300">This gives you something tangible to click during a presentation, not just passive visuals.</p>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+        <button className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-orange-500 px-6 py-4 font-semibold text-zinc-950 transition hover:bg-orange-400">
+          Launch request flow <ArrowRight className="h-4 w-4" />
+        </button>
+      </motion.div>
+    </div>
   );
 }

@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Zap } from 'lucide-react';
 import { Reveal } from './motion';
+import { TiltCard } from './tilt-card';
 
 type Product = {
   name: string;
@@ -69,28 +70,26 @@ export function InteractiveProductWall() {
 
       <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="grid gap-6 sm:grid-cols-2">
-          {visibleProducts.map((product, index) => (
+          {visibleProducts.map((product) => (
             <Reveal key={product.name}>
-              <motion.button
-                whileHover={{ y: -8 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => setSelected(product.name)}
-                className={`text-left rounded-[1.9rem] border p-6 transition ${
+              <TiltCard
+                className={`relative rounded-[1.9rem] border p-6 text-left transition ${
                   current?.name === product.name
                     ? 'border-orange-500/40 bg-orange-500/10'
                     : 'border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))]'
                 }`}
               >
-                <div className="steel-panel h-32 rounded-[1.4rem]" />
-                <div className="mt-5 text-xs uppercase tracking-[0.25em] text-orange-300">{product.category}</div>
-                <div className="mt-2 text-2xl font-black">{product.name}</div>
-                <div className="mt-2 text-lg font-semibold text-orange-400">{product.price}</div>
-                <p className="mt-3 text-zinc-300">{product.highlight}</p>
-                <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-orange-300">
-                  Quick spotlight <ArrowRight className="h-4 w-4" />
-                </div>
-                <div className="pointer-events-none absolute" />
-              </motion.button>
+                <motion.button whileTap={{ scale: 0.98 }} onClick={() => setSelected(product.name)} className="relative block w-full text-left">
+                  <div className="steel-panel h-32 rounded-[1.4rem]" />
+                  <div className="mt-5 text-xs uppercase tracking-[0.25em] text-orange-300">{product.category}</div>
+                  <div className="mt-2 text-2xl font-black">{product.name}</div>
+                  <div className="mt-2 text-lg font-semibold text-orange-400">{product.price}</div>
+                  <p className="mt-3 text-zinc-300">{product.highlight}</p>
+                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-orange-300">
+                    Quick spotlight <ArrowRight className="h-4 w-4" />
+                  </div>
+                </motion.button>
+              </TiltCard>
             </Reveal>
           ))}
         </div>
