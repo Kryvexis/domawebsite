@@ -4,6 +4,8 @@ import { HomeHero } from '@/components/home-hero';
 import { InteractiveCommandCenter } from '@/components/interactive-command-center';
 import { ScrollStory } from '@/components/scroll-story';
 import { ComparisonSlab } from '@/components/comparison-slab';
+import { ImpactCounters } from '@/components/impact-counters';
+import { HorizonBand } from '@/components/horizon-band';
 import { Reveal } from '@/components/motion';
 import { SectionHeading } from '@/components/section-heading';
 import { categories, featureReasons, highlights } from '@/components/site-data';
@@ -12,6 +14,8 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
+
+      <ImpactCounters />
 
       <section className="border-y border-white/5 bg-zinc-900/40 py-28">
         <div className="section-shell">
@@ -100,6 +104,8 @@ export default function HomePage() {
       <ScrollStory />
 
       <InteractiveCommandCenter />
+
+      <HorizonBand />
 
       <ComparisonSlab />
 
