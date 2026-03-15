@@ -1,6 +1,7 @@
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { HomeHero } from '@/components/home-hero';
+import { InteractiveCommandCenter } from '@/components/interactive-command-center';
 import { Reveal } from '@/components/motion';
 import { SectionHeading } from '@/components/section-heading';
 import { categories, featureReasons, highlights } from '@/components/site-data';
@@ -93,6 +94,8 @@ export default function HomePage() {
           })}
         </div>
       </section>
+
+      <InteractiveCommandCenter />
 
       <section className="relative overflow-hidden border-y border-white/5 bg-[linear-gradient(180deg,rgba(249,115,22,0.05),transparent_35%,rgba(255,255,255,0.02))] py-32">
         <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-orange-500/8 to-transparent" />

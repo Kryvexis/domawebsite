@@ -1,6 +1,12 @@
-import { ArrowRight, Clock3, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, Clock3, MapPin, Phone, type LucideIcon } from 'lucide-react';
 import { PageHero } from '@/components/page-hero';
 import { Reveal } from '@/components/motion';
+
+const contactCards: Array<{ label: string; value: string; icon: LucideIcon }> = [
+  { label: 'Phone', value: '+27 00 000 0000', icon: Phone },
+  { label: 'Location', value: '123 Builder Street, Johannesburg', icon: MapPin },
+  { label: 'Hours', value: 'Mon - Sat | 07:30 - 17:30', icon: Clock3 },
+];
 
 export default function ContactPage() {
   return (
@@ -15,18 +21,14 @@ export default function ContactPage() {
           <Reveal>
             <div className="steel-panel rounded-[2rem] p-8">
               <div className="grid gap-4">
-                {[
-                  ['Phone', '+27 00 000 0000', Phone],
-                  ['Location', '123 Builder Street, Johannesburg', MapPin],
-                  ['Hours', 'Mon - Sat | 07:30 - 17:30', Clock3],
-                ].map(([label, value, Icon]) => {
-                  const Comp = Icon as typeof Phone;
+                {contactCards.map((item) => {
+                  const Icon = item.icon;
                   return (
-                    <div key={label} className="rounded-2xl border border-white/10 bg-zinc-900/80 px-5 py-4 flex items-center gap-4">
-                      <Comp className="h-5 w-5 text-orange-400" />
+                    <div key={item.label} className="flex items-center gap-4 rounded-2xl border border-white/10 bg-zinc-900/80 px-5 py-4">
+                      <Icon className="h-5 w-5 text-orange-400" />
                       <div>
-                        <div className="text-xs uppercase tracking-[0.25em] text-zinc-500">{label}</div>
-                        <div className="mt-1">{value}</div>
+                        <div className="text-xs uppercase tracking-[0.25em] text-zinc-500">{item.label}</div>
+                        <div className="mt-1">{item.value}</div>
                       </div>
                     </div>
                   );

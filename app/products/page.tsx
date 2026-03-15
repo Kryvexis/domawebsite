@@ -2,6 +2,7 @@ import { Star } from 'lucide-react';
 import { PageHero } from '@/components/page-hero';
 import { Reveal } from '@/components/motion';
 import { featuredProducts } from '@/components/site-data';
+import { InteractiveProductWall } from '@/components/interactive-product-wall';
 
 export default function ProductsPage() {
   return (
@@ -11,6 +12,8 @@ export default function ProductsPage() {
         title="A richer catalogue-style page."
         body="This page mockup shows how the store can feel more like a proper digital showroom, with filters, featured deals, best sellers and scroll-rich layouts."
       />
+      <InteractiveProductWall />
+
       <section className="section-shell pb-24">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_2fr]">
           <Reveal>
