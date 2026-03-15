@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-zinc-950 text-white antialiased;
+  background-image:
+    radial-gradient(circle at top, rgba(249, 115, 22, 0.14), transparent 22%),
+    linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, #09090b, #0f0f12 55%, #09090b);
+  background-size: auto, 64px 64px, 64px 64px, auto;
+}
+
+.steel-panel {
+  @apply border border-white/10 bg-white/[0.04] backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.05)];
+}
+
+.section-shell {
+  @apply mx-auto max-w-7xl px-6;
+}
+
+.hero-metal {
+  background-image:
+    linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+    linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: auto, 24px 24px, 24px 24px;
+}
+
+.orange-line {
+  box-shadow: 0 0 34px rgba(249, 115, 22, 0.5);
+}
