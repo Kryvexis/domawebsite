@@ -56,3 +56,23 @@ body::before {
     background-size: auto, 42px 42px, 42px 42px, auto;
   }
 }
+
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 10%, rgba(249,115,22,0.05), transparent 28%), radial-gradient(circle at 80% 30%, rgba(255,255,255,0.04), transparent 24%);
+  opacity: 0.9;
+}
+
+.glass-edge {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 20px 60px rgba(0,0,0,0.32);
+}
+
+@media (max-width: 640px) {
+  .section-shell {
+    @apply px-4;
+  }
+}

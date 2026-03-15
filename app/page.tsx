@@ -1,6 +1,8 @@
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { HomeHero } from '@/components/home-hero';
+import { AgencyOpener } from '@/components/agency-opener';
+import { SceneStack } from '@/components/scene-stack';
 import { InteractiveCommandCenter } from '@/components/interactive-command-center';
 import { ScrollStory } from '@/components/scroll-story';
 import { ComparisonSlab } from '@/components/comparison-slab';
@@ -16,6 +18,8 @@ export default function HomePage() {
       <HomeHero />
 
       <ImpactCounters />
+
+      <AgencyOpener />
 
       <section className="border-y border-white/5 bg-zinc-900/40 py-28">
         <div className="section-shell">
@@ -104,6 +108,8 @@ export default function HomePage() {
       <ScrollStory />
 
       <InteractiveCommandCenter />
+
+      <SceneStack />
 
       <HorizonBand />
 
