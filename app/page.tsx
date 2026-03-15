@@ -5,6 +5,9 @@ import { InteractiveCommandCenter } from '@/components/interactive-command-cente
 import { Reveal } from '@/components/motion';
 import { SectionHeading } from '@/components/section-heading';
 import { categories, featureReasons, highlights } from '@/components/site-data';
+import { ScrollStory } from '@/components/scroll-story';
+import { ShowcaseLab } from '@/components/showcase-lab';
+import { MagneticButton } from '@/components/magnetic-button';
 
 export default function HomePage() {
   return (
@@ -24,7 +27,7 @@ export default function HomePage() {
               const Icon = item.icon;
               return (
                 <Reveal key={item.title}>
-                  <div className="steel-panel h-full rounded-[1.8rem] p-8">
+                  <div className="steel-panel h-full rounded-[1.8rem] p-8 transition duration-300 hover:-translate-y-2 hover:border-orange-500/20 hover:bg-white/[0.06]">
                     <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-orange-500/20 bg-orange-500/15">
                       <Icon className="h-7 w-7 text-orange-400" />
                     </div>
@@ -38,6 +41,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <ScrollStory />
+
       <section className="section-shell py-28">
         <SectionHeading
           eyebrow="Why it feels premium"
@@ -50,7 +55,7 @@ export default function HomePage() {
             const Icon = item.icon;
             return (
               <Reveal key={item.title}>
-                <div className="steel-panel h-full rounded-[1.75rem] p-8">
+                <div className="steel-panel h-full rounded-[1.75rem] p-8 transition duration-300 hover:-translate-y-2 hover:border-orange-500/20 hover:bg-white/[0.06]">
                   <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl border border-orange-500/20 bg-orange-500/15">
                     <Icon className="h-7 w-7 text-orange-400" />
                   </div>
@@ -63,6 +68,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <ShowcaseLab />
+
       <section className="section-shell py-28">
         <SectionHeading
           eyebrow="Departments"
@@ -74,8 +81,8 @@ export default function HomePage() {
             const Icon = item.icon;
             return (
               <Reveal key={item.name}>
-                <div className="group relative min-h-[280px] overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition hover:-translate-y-1.5">
-                  <div className="absolute inset-0 opacity-0 transition group-hover:opacity-100 bg-[radial-gradient(circle_at_top_right,rgba(249,115,22,0.16),transparent_34%)]" />
+                <div className="group relative min-h-[280px] overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition duration-300 hover:-translate-y-2 hover:border-orange-500/20">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(249,115,22,0.16),transparent_34%)] opacity-0 transition group-hover:opacity-100" />
                   <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-orange-500/5 to-transparent" />
                   <div className="relative z-10 flex h-full flex-col">
                     <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-orange-500/20 bg-orange-500/15">
@@ -108,9 +115,9 @@ export default function HomePage() {
           <Reveal>
             <div className="steel-panel rounded-[2.2rem] bg-zinc-950/75 p-6">
               <div className="grid grid-cols-2 gap-4">
-                <div className="steel-panel min-h-[200px] rounded-[1.5rem] bg-white/5 p-6" />
-                <div className="min-h-[200px] rounded-[1.5rem] border border-orange-500/20 bg-orange-500/12 p-6" />
-                <div className="steel-panel col-span-2 min-h-[240px] rounded-[1.5rem] bg-gradient-to-r from-zinc-900 to-zinc-950 p-6 flex items-end">
+                <div className="steel-panel min-h-[200px] rounded-[1.5rem] bg-white/5 p-6 transition duration-300 hover:-translate-y-2" />
+                <div className="min-h-[200px] rounded-[1.5rem] border border-orange-500/20 bg-orange-500/12 p-6 transition duration-300 hover:-translate-y-2" />
+                <div className="steel-panel col-span-2 flex min-h-[240px] items-end rounded-[1.5rem] bg-gradient-to-r from-zinc-900 to-zinc-950 p-6 transition duration-300 hover:-translate-y-2">
                   <div>
                     <div className="text-xs uppercase tracking-[0.28em] text-zinc-500">Premium trade experience</div>
                     <div className="mt-3 text-3xl font-black uppercase">Wide promo bands, stronger storytelling and heavier visuals.</div>
@@ -129,13 +136,11 @@ export default function HomePage() {
               <div className="text-sm uppercase tracking-[0.3em] text-orange-300">Ready to build</div>
               <h3 className="mt-3 text-4xl font-black md:text-5xl">Turn this concept into your live store website.</h3>
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-zinc-300">
-                This starter already has the premium industrial direction. Replace the sample brand, contact details and categories, then deploy it straight to Vercel.
+                This starter now has presentation-grade motion, click states and reactive demo sections. Replace the sample brand, contact details and categories, then deploy it straight to Vercel.
               </p>
             </div>
             <div className="flex flex-col gap-4 md:items-start">
-              <Link href="/contact" className="inline-flex items-center gap-2 rounded-2xl bg-orange-500 px-6 py-4 font-semibold text-zinc-950 transition hover:bg-orange-400">
-                Start the live version <ArrowRight className="h-4 w-4" />
-              </Link>
+              <MagneticButton href="/contact">Start the live version <ArrowRight className="h-4 w-4" /></MagneticButton>
               <Link href="/products" className="rounded-2xl border border-white/10 bg-zinc-900/80 px-6 py-4 font-medium text-white transition hover:bg-zinc-900">
                 Browse products page
               </Link>

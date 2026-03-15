@@ -1,6 +1,7 @@
 import { Clock3 } from 'lucide-react';
 import { PageHero } from '@/components/page-hero';
 import { Reveal } from '@/components/motion';
+import { SpecialsSpotlight } from '@/components/specials-spotlight';
 
 export default function SpecialsPage() {
   return (
@@ -10,13 +11,14 @@ export default function SpecialsPage() {
         title="A page built for promos and high-attention offers."
         body="This kind of page is ideal for rotating weekly deals, bundle offers, contractor discounts and seasonal campaigns."
       />
+      <SpecialsSpotlight />
       <section className="section-shell pb-24">
         <div className="grid gap-6 lg:grid-cols-3">
           {[1, 2, 3].map((i) => (
             <Reveal key={i}>
-              <div className="relative min-h-[360px] overflow-hidden rounded-[2rem] border border-orange-500/20 bg-gradient-to-b from-orange-500/12 to-white/5 p-7 transition hover:-translate-y-1.5">
+              <div className="relative min-h-[360px] overflow-hidden rounded-[2rem] border border-orange-500/20 bg-gradient-to-b from-orange-500/12 to-white/5 p-7 transition duration-300 hover:-translate-y-2 hover:border-orange-500/40">
                 <div className="text-sm uppercase tracking-[0.28em] text-orange-300">Limited Deal</div>
-                <div className="mt-4 text-4xl font-black">Up to 30% Off</div>
+                <div className="mt-4 text-4xl font-black uppercase">Up to 30% Off</div>
                 <div className="mt-4 leading-relaxed text-zinc-300">
                   Use this block for striking promotional campaigns with timers, bundle messaging or product combinations.
                 </div>

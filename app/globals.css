@@ -20,6 +20,29 @@ body {
   background-size: auto, 64px 64px, 64px 64px, auto;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    linear-gradient(to bottom, rgba(255,255,255,0.02), transparent 12%, transparent 88%, rgba(255,255,255,0.02)),
+    radial-gradient(circle at 20% 10%, rgba(249,115,22,0.08), transparent 20%);
+  mix-blend-mode: screen;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.08;
+  background-image: linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px);
+  background-size: 100% 3px;
+}
+
 .steel-panel {
   @apply border border-white/10 bg-white/[0.04] backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.05)];
 }
@@ -38,4 +61,22 @@ body {
 
 .orange-line {
   box-shadow: 0 0 34px rgba(249, 115, 22, 0.5);
+}
+
+.chrome-text {
+  background: linear-gradient(180deg, #fff, #d8d8d8 48%, #868686);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.metal-grid {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.glow-border {
+  box-shadow: 0 0 0 1px rgba(249,115,22,0.18), 0 0 50px rgba(249,115,22,0.12);
 }
